@@ -1,1 +1,1 @@
-# ProgramPigeon
+# ProgramPigeon app, for helping coaches deliver programs to athletes!

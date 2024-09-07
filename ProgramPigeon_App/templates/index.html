@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Home | ProgramPigeon{% endblock %}
+{% block content %}
+<div class="site_content">
+
+    <div class="welcom-image">
+        <img src="{{ url_for('static', filename='images/group-class.jpg') }}" class="group-class">
+    </div>
+
+    <h1>Welcom to Program Pigeon!</h1>
+    <p class="about"> ProgramPigeon is a fitness coaching platform that is designed to make it simpler for coaches and clients to plan and execute to reach their goals!</p>
+
+    <div class="actions">
+        <div class="login">
+            <a href="{{ url_for('login') }}">Already have an account? Log in!</a>
+        </div>
+        <div class="register-coach">
+            <a href="{{ url_for('register') }}">Register Here</a>
+        </div>
+        <div class="register-client">
+            <a href="{{ url_for('register') }}">Register Here</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
