@@ -66,14 +66,17 @@ At MVP, clients can:
 
 | Milestone | Name | Definition of Done |
 |-----------|------|--------------------|
-| M0 | CI/CD Foundation | GitHub Actions pipeline running lint, tests, and build on every PR to `master` |
-| M1 | Auth & Accounts | Self-serve registration, JWT auth, coach/client roles, coaching invite system, relationship management |
-| M2 | Workout Builder | Coach creates plans → workouts → exercise blocks (single + supersets), assigns plans to clients |
-| M3 | Client Workout Experience | Client views workouts, logs weights/reps, comments per exercise + whole workout, marks complete |
-| M4 | Messaging | Per-workout threaded messages + general coach-client direct messaging |
-| M5 | Dashboard & Polish | Coach sees client roster and activity; client sees upcoming/past workouts; app is end-to-end testable |
+| M0 | Infrastructure Setup | Railway project live, PostgreSQL connected, health check returns 200 in production |
+| M1 | CI/CD + Observability | GitHub Actions pipeline (lint/test/build/deploy) green; Grafana Cloud showing FastAPI metrics and logs |
+| M2 | Auth & Accounts | Self-serve registration, JWT auth, coach/client roles, coaching invite system, relationship management |
+| M3 | Workout Builder | Coach creates plans → workouts → exercise blocks (single + supersets), assigns plans to clients |
+| M4 | Client Workout Experience | Client views workouts, logs weights/reps, comments per exercise + whole workout, marks complete |
+| M5 | Messaging | Per-workout threaded messages + general coach-client direct messaging |
+| M6 | Dashboard & Polish | Coach sees client roster and activity; client sees upcoming/past workouts; app is end-to-end testable |
 
 Each milestone is complete when: all Issues are closed, automated tests pass in CI, and the feature is manually verified end-to-end.
+
+See [Infrastructure Design](2026-03-27-infrastructure-design.md) for full details on hosting, database, observability, and CI/CD decisions.
 
 ---
 
@@ -123,7 +126,7 @@ These apply to every milestone across all phases.
 
 ### GitHub Milestones
 
-GitHub Milestones map 1:1 with M0–M5 (and future phases). Issues are attached to their milestone. A milestone closes when all its issues are closed and CI is green.
+GitHub Milestones map 1:1 with M0–M6 (and future phases). Issues are attached to their milestone. A milestone closes when all its issues are closed and CI is green.
 
 ---
 
@@ -136,7 +139,6 @@ GitHub Milestones map 1:1 with M0–M5 (and future phases). Issues are attached 
 
 ### Phase 3: Group/Community Workouts
 - Gym posts daily WODs visible to all gym members
-- Members (not necessarily coached) can view, comment, and post scores
 - Members (not necessarily coached) can view, comment, and post scores
 
 ### Phase 4: Metrics Tracking
