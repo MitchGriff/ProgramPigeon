@@ -7,7 +7,7 @@
 
 ## Vision
 
-ProgramPigeon is a fitness coaching platform that starts as a direct TrueCoach competitor and grows into a full one-stop shop for the fitness coaching space. The core differentiator is combining personalized coach-client delivery (TrueCoach-style) with community/group workout tracking (SugarWOD/BTWB-style) and client-owned metrics — in a single platform, at lower cost to coaches.
+ProgramPigeon is a fitness coaching platform built to be a full one-stop shop for the fitness coaching space. The core differentiator is combining personalized coach-client delivery with community/group workout tracking and client-owned metrics — in a single platform, at lower cost to coaches.
 
 **Primary paying customer:** Coaches pay a subscription to use ProgramPigeon. Client billing and gym subscription management (via Stripe) come in a later phase.
 
@@ -23,9 +23,9 @@ Phases are sequential. A phase does not begin until the previous phase is real-u
 
 | Phase | Name | Description |
 |-------|------|-------------|
-| 1 | Coach-Client Core (MVP) | Workout delivery, client logging, messaging — the TrueCoach competitor |
+| 1 | Coach-Client Core (MVP) | Workout delivery, client logging, and messaging between coaches and clients |
 | 2 | Organizations | Coaches group under gyms/orgs; gym owner role manages coaching staff |
-| 3 | Group/Community Workouts | Gyms post daily WODs; members comment, post scores (SugarWOD-style) |
+| 3 | Group/Community Workouts | Gyms post daily WODs; members comment and post scores |
 | 4 | Metrics Tracking | Coaches and clients track performance metrics over time |
 | 5 | Mobile App | React Native app with push notifications, workout completion, messaging |
 | 6 | Payments | Stripe integration — coach subscriptions, client billing, gym memberships |
@@ -137,12 +137,11 @@ GitHub Milestones map 1:1 with M0–M5 (and future phases). Issues are attached 
 ### Phase 3: Group/Community Workouts
 - Gym posts daily WODs visible to all gym members
 - Members (not necessarily coached) can view, comment, and post scores
-- Modeled after SugarWOD / Behind the Whiteboard
+- Members (not necessarily coached) can view, comment, and post scores
 
 ### Phase 4: Metrics Tracking
 - Coaches track client performance metrics (body weight, PRs, benchmarks)
 - Clients track their own metrics
-- Addresses a major gap in TrueCoach vs. BTWB
 
 ### Phase 5: Mobile App
 - React Native (web-first, then mobile)
@@ -150,6 +149,6 @@ GitHub Milestones map 1:1 with M0–M5 (and future phases). Issues are attached 
 
 ### Phase 6: Payments (Stripe)
 - Coach subscription billing
-- Coach charges clients through ProgramPigeon (small platform cut — lower than TrueCoach)
+- Coach charges clients through ProgramPigeon (small platform cut)
 - Gym subscription management (auto-pay for gym memberships)
 - No sensitive financial data stored in-house — Stripe handles everything
