@@ -1,0 +1,194 @@
+.page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.loading, .error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: #666;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.back {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem;
+}
+
+.description {
+  color: #555;
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.meta {
+  color: #999;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.assignSection {
+  background: #f9f9ff;
+  border: 1px solid #e0deff;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.assignSection h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem;
+}
+
+.assignRow {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.select {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.assignButton {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.assignButton:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.assignButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.success {
+  color: #16a34a;
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0;
+}
+
+.workouts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.workoutCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.workoutHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.workoutOrder {
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.workoutTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.workoutNotes {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0 0 1rem;
+}
+
+.exerciseTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.exerciseTable th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  color: #888;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.exerciseTable td {
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid #f9f9f9;
+  color: #333;
+}
+
+.exerciseTable tr:last-child td {
+  border-bottom: none;
+}
+
+.exerciseName {
+  font-weight: 500;
+  color: #1a1a1a !important;
+}
+
+.exerciseNotes {
+  color: #888 !important;
+  font-style: italic;
+}
