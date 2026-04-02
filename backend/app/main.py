@@ -3,6 +3,8 @@ Main FastAPI application entrypoint.
 Registers middleware, mounts all API routers, and exposes a health check endpoint.
 """
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from alembic.config import Config
@@ -23,10 +25,21 @@ def run_migrations() -> None:
     command.upgrade(alembic_cfg, "head")
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Manages application startup and shutdown lifecycle.
+    Runs Alembic migrations on startup so the DB schema is always current.
+    """
+    run_migrations()
+    yield
+
+
 app = FastAPI(
     title="ProgramPigeon",
     description="Fitness coaching platform API — coaches deliver workout plans and message clients.",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
 # Allow the React frontend (and any configured origins) to make cross-origin requests
@@ -43,15 +56,6 @@ app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["users"])
 app.include_router(plans.router, prefix="/api/v1/plans", tags=["plans"])
 app.include_router(messages.router, prefix="/api/v1/messages", tags=["messages"])
-
-
-@app.on_event("startup")
-async def startup_event() -> None:
-    """
-    Runs on application startup.
-    Applies any pending database migrations so tables always exist before the app serves requests.
-    """
-    run_migrations()
 
 
 @app.get("/health", tags=["health"])
