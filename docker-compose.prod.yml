@@ -12,12 +12,11 @@ services:
     restart: unless-stopped
 
   frontend:
-    # Override with the nginx-based production build
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: node:20-alpine  # Overridden by build above
-    command: []            # nginx handles serving
+    environment:
+      - BACKEND_INTERNAL_URL=http://backend:8000
     ports:
       - "80:80"
     restart: unless-stopped
