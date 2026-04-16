@@ -13,7 +13,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, require_coach
 from app.models.user import User, coach_client
-from app.schemas.user import UserResponse
+from app.schemas.user import UserResponse, ClientByEmailRequest
+from app.services.users import add_client_by_email as add_client_by_email_service
 
 router = APIRouter()
 
@@ -34,6 +35,26 @@ async def get_my_clients(
         .where(coach_client.c.coach_id == coach.id)
     )
     return result.scalars().all()
+
+
+@router.post("/clients/by-email", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def add_client_by_email(
+    data: ClientByEmailRequest,
+    db: AsyncSession = Depends(get_db),
+    coach: User = Depends(require_coach),
+):
+    """
+    Link a client to this coach's roster by email address.
+
+    Args:
+        data: Request body containing the client's email address.
+
+    Raises:
+        HTTPException 404: If no client account exists with that email.
+        HTTPException 400: If the client is already on this coach's roster.
+        HTTPException 403: If the caller is not a coach.
+    """
+    return await add_client_by_email_service(db, coach, data.email)
 
 
 @router.post("/clients/{client_id}", response_model=UserResponse, status_code=status.HTTP_201_CREATED)

@@ -44,3 +44,8 @@ class UserResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class ClientByEmailRequest(BaseModel):
+    """Request body for POST /users/clients/by-email."""
+    email: EmailStr

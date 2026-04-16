@@ -27,3 +27,12 @@ export async function addClient(clientId: string): Promise<User> {
 export async function removeClient(clientId: string): Promise<void> {
   await apiClient.delete(`/users/clients/${clientId}`)
 }
+
+/**
+ * Add a client to the authenticated coach's roster by email address.
+ * Throws if the email is not found or belongs to a non-client account.
+ */
+export async function addClientByEmail(email: string): Promise<User> {
+  const { data } = await apiClient.post<User>('/users/clients/by-email', { email })
+  return data
+}

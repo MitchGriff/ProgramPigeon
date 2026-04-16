@@ -9,7 +9,9 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import hash_password, verify_password
+from jose import JWTError
+
+from app.core.security import hash_password, verify_password, decode_token
 from app.models.user import User
 from app.schemas.user import UserCreate
 
@@ -72,5 +74,42 @@ async def authenticate_user(db: AsyncSession, email: str, password: str) -> User
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
+
+    return user
+
+
+async def refresh_tokens(db: AsyncSession, refresh_token: str) -> User:
+    """
+    Validate a refresh token and return the associated user.
+
+    Args:
+        db: Async database session.
+        refresh_token: The JWT refresh token string from the cookie.
+
+    Returns:
+        The User associated with the token.
+
+    Raises:
+        HTTPException 401: If the token is invalid, expired, or the wrong type.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate refresh token",
+    )
+
+    try:
+        payload = decode_token(refresh_token)
+        if payload.get("type") != "refresh":
+            raise credentials_exception
+        user_id: str = payload.get("sub")
+        if not user_id:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    result = await db.execute(select(User).where(User.id == user_id))
+    user = result.scalar_one_or_none()
+    if not user:
+        raise credentials_exception
 
     return user

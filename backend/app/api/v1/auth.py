@@ -5,7 +5,7 @@ Tokens are delivered as httpOnly cookies rather than JSON body so they
 are inaccessible to JavaScript (mitigates XSS token theft).
 """
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, get_current_user
@@ -13,7 +13,7 @@ from app.core.config import settings
 from app.core.security import create_access_token, create_refresh_token, decode_token
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse
-from app.services.auth import authenticate_user, register_user
+from app.services.auth import authenticate_user, register_user, refresh_tokens
 
 router = APIRouter()
 
@@ -87,6 +87,30 @@ async def logout(response: Response):
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
     return {"message": "Logged out successfully"}
+
+
+@router.post("/refresh", response_model=UserResponse)
+async def refresh(
+    response: Response,
+    refresh_token: str = Cookie(default=None),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Issue a new access token and refresh token using the existing refresh token cookie.
+
+    Both tokens are rotated on each call. Returns the current user's profile.
+    Returns 401 if the refresh token is missing, invalid, expired, or the wrong type.
+    """
+    if not refresh_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No refresh token",
+        )
+    user = await refresh_tokens(db, refresh_token)
+    new_access_token = create_access_token(subject=str(user.id), role=user.role.value)
+    new_refresh_token = create_refresh_token(subject=str(user.id))
+    _set_auth_cookies(response, new_access_token, new_refresh_token)
+    return user
 
 
 @router.get("/me", response_model=UserResponse)
