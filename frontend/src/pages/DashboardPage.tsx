@@ -85,6 +85,9 @@ export default function DashboardPage() {
           <section className={styles.card}>
             <div className={styles.cardHeader}>
               <h2>My Clients</h2>
+              <Link to="/clients" className={styles.linkButton}>
+                Manage clients →
+              </Link>
             </div>
             {clients.length === 0 ? (
               <p className={styles.empty}>No clients yet.</p>

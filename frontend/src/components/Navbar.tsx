@@ -37,6 +37,14 @@ export default function Navbar() {
         >
           Plans
         </NavLink>
+        {user?.role === 'coach' && (
+          <NavLink
+            to="/clients"
+            className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}
+          >
+            Clients
+          </NavLink>
+        )}
         <NavLink
           to="/messages"
           className={({ isActive }) => (isActive ? styles.linkActive : styles.link)}

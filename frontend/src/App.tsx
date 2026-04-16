@@ -18,6 +18,7 @@ import DashboardPage from '@/pages/DashboardPage'
 import PlansPage from '@/pages/PlansPage'
 import PlanDetailPage from '@/pages/PlanDetailPage'
 import MessagesPage from '@/pages/MessagesPage'
+import ClientsPage from '@/pages/ClientsPage'
 
 /** Layout wrapper for authenticated pages — renders the Navbar above the page content. */
 function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
@@ -85,6 +86,17 @@ export default function App() {
               <ProtectedRoute>
                 <AuthenticatedLayout>
                   <MessagesPage />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/clients"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <ClientsPage />
                 </AuthenticatedLayout>
               </ProtectedRoute>
             }
